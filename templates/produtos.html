@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>{{ "Editar Produto" if editar else "Cadastro de Produtos" }}</h1>
+
+<form method="POST" action="{% if editar %}{{ url_for('editar_produto', id=produto.id) }}{% else %}{{ url_for('novo_produto') }}{% endif %}">
+
+    <label>Nome:</label>
+    <input type="text" name="nome" value="{{ produto.nome if editar else '' }}" required>
+
+    <label>Categoria:</label>
+    <input type="text" name="categoria" value="{{ produto.categoria if editar else '' }}" required>
+
+    <label>Tamanho:</label>
+    <input type="text" name="tamanho" value="{{ produto.tamanho if editar else '' }}">
+
+    <label>Cor:</label>
+    <input type="text" name="cor" value="{{ produto.cor if editar else '' }}">
+
+    <label>Preço de Custo:</label>
+    <input type="number" name="preco_custo" step="0.01" value="{{ produto.preco_custo if editar else '' }}" required>
+
+    <label>Preço de Venda:</label>
+    <input type="number" name="preco_venda" step="0.01" value="{{ produto.preco_venda if editar else '' }}" required>
+
+    <label>Quantidade em Estoque:</label>
+    <input type="number" name="quantidade_estoque" min="0" value="{{ produto.quantidade_estoque if editar else '' }}" required>
+
+    <button type="submit">{{ "Salvar alterações" if editar else "Cadastrar Produto" }}</button>
+
+</form>
+
+<hr>
+
+<h2>Produtos cadastrados</h2>
+
+<table border="1">
+
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Categoria</th>
+            <th>Tamanho</th>
+            <th>Cor</th>
+            <th>Preço de Custo</th>
+            <th>Preço de Venda</th>
+            <th>Estoque</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for produto in produtos %}
+
+        <tr>
+            <td>{{ produto.nome }}</td>
+            <td>{{ produto.categoria }}</td>
+            <td>{{ produto.tamanho }}</td>
+            <td>{{ produto.cor }}</td>
+            <td>R$ {{ produto.preco_custo }}</td>
+            <td>R$ {{ produto.preco_venda }}</td>
+            <td>{{ produto.quantidade_estoque }}</td>
+            <td>
+                <a href="{{ url_for('editar_produto', id=produto.id) }}">Editar</a>
+                <form method="POST" action="{{ url_for('excluir_produto', id=produto.id) }}" style="display:inline">
+                    <button type="submit" onclick="return confirm('Excluir este produto?')">Excluir</button>
+                </form>
+            </td>
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}
