@@ -1,3 +1,4 @@
+from datetime import date, timedelta
 from flask import Flask, render_template, request, redirect, url_for
 from database import get_connection, init_db
 
@@ -182,6 +183,58 @@ def nova_venda():
     ).fetchall()
     conn.close()
     return render_template("nova_venda.html", produtos=produtos)
+
+
+@app.route("/dashboard")
+def dashboard():
+    periodo = request.args.get("periodo", "hoje")  # hoje, semana, mes
+    hoje = date.today()
+
+    if periodo == "semana":
+        # segunda-feira dessa semana
+        data_inicio = hoje - timedelta(days=hoje.weekday())
+    elif periodo == "mes":
+        data_inicio = hoje.replace(day=1)
+    else:
+        data_inicio = hoje
+
+    conn = get_connection()
+
+    # 1. Faturamento do período
+    faturamento = conn.execute("""
+        SELECT COUNT(*) as total_vendas, 
+        COALESCE(SUM(total), 0) as faturamento_total,
+        COALESCE(AVG(total), 0) as ticket_medio
+        FROM vendas
+        WHERE date(data_venda) >= ?
+    """, (data_inicio.isoformat(),)).fetchone()
+
+    # 2. Estoque atual
+    estoque = conn.execute("""
+        SELECT nome, categoria, tamanho, cor, quantidade_estoque
+        FROM produtos WHERE ativo = 1
+        ORDER BY quantidade_estoque ASC
+    """).fetchall()
+
+    # 3. Mais vendidos no período
+    mais_vendidos = conn.execute("""
+        SELECT p.nome, COALESCE(SUM(iv.quantidade), 0) as total_vendido
+        FROM produtos p
+        LEFT JOIN itens_venda iv ON iv.produto_id = p.id
+        LEFT JOIN vendas v ON v.id = iv.venda_id AND date(v.data_venda) >= ?
+        WHERE p.ativo = 1
+        GROUP BY p.id
+        ORDER BY total_vendido DESC
+""", (data_inicio.isoformat(),)).fetchall()
+    conn.close()
+
+    return render_template(
+        "dashboard.html",
+        faturamento=faturamento,
+        estoque=estoque,
+        mais_vendidos=mais_vendidos,
+        periodo=periodo
+    )
 
 
 if __name__ == "__main__":

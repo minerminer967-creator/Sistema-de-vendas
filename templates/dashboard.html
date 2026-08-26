@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Dashboard</h1>
+
+<div>
+    <a href="{{ url_for('dashboard', periodo='hoje') }}"
+    style="font-weight: {{ 'bold' if periodo == 'hoje' else 'normal' }};">
+        Hoje
+    </a>
+    |
+    <a href="{{ url_for('dashboard', periodo='semana') }}"
+    style="font-weight: {{ 'bold' if periodo == 'semana' else 'normal' }};">
+        Essa semana
+    </a>
+    |
+    <a href="{{ url_for('dashboard', periodo='mes') }}"
+    style="font-weight: {{ 'bold' if periodo == 'mes' else 'normal' }};">
+        Esse mês
+    </a>
+</div>
+
+<hr>
+
+<h2>Faturamento</h2>
+
+<table border="1">
+    <tr>
+        <th>Total de vendas</th>
+        <th>Faturamento total</th>
+        <th>Ticket médio</th>
+    </tr>
+    <tr>
+        <td>{{ faturamento.total_vendas }}</td>
+        <td>R$ {{ "%.2f"|format(faturamento.faturamento_total) }}</td>
+        <td>R$ {{ "%.2f"|format(faturamento.ticket_medio) }}</td>
+    </tr>
+</table>
+
+<hr>
+
+<h2>Estoque atual</h2>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Produto</th>
+            <th>Categoria</th>
+            <th>Tamanho</th>
+            <th>Cor</th>
+            <th>Estoque</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for produto in estoque %}
+        <tr>
+            <td>{{ produto.nome }}</td>
+            <td>{{ produto.categoria }}</td>
+            <td>{{ produto.tamanho }}</td>
+            <td>{{ produto.cor }}</td>
+            <td>{{ produto.quantidade_estoque }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<hr>
+
+<h2>Mais vendidos no período</h2>
+
+{% if mais_vendidos %}
+<table border="1">
+    <thead>
+        <tr>
+            <th>Produto</th>
+            <th>Quantidade vendida</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in mais_vendidos %}
+        <tr>
+            <td>{{ item.nome }}</td>
+            <td>{{ item.total_vendido }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>Nenhuma venda registrada nesse período.</p>
+{% endif %}
+
+{% endblock %}

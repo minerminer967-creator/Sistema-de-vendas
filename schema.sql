@@ -34,3 +34,4 @@ CREATE TABLE IF NOT EXISTS itens_venda (
     FOREIGN KEY (venda_id) REFERENCES vendas(id),
     FOREIGN KEY (produto_id) REFERENCES produtos(id)
 );
+
