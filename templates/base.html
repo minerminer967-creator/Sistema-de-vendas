@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Sistema de Vendas</title>
+    <link rel="stylesheet" href="layouts.css">
 </head>
+    
 
 <body>
 
@@ -36,3 +38,8 @@
 </body>
 
 </html>
+<nav>
+    <a href="{{ url_for('listar_produtos') }}">Produtos</a>
+    <a href="{{ url_for('novo_produto') }}">Novo Produto</a>
+    <a href="{{ url_for('nova_venda') }}">Nova Venda</a>
+</nav>

@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Nova Venda</h1>
+
+<form method="POST">
+
+    <h2>Produtos da Venda</h2>
+
+    {% for produto in produtos %}
+
+<div>
+    <input
+        type="checkbox"
+        name="produto_id"
+        value="{{ produto.id }}"
+    >
+
+    <label>
+        {{ produto.nome }} - {{ produto.categoria }} - {{ produto.tamanho }} - {{ produto.cor }}
+        - R$ {{ "%.2f"|format(produto.preco_venda) }}
+        - Estoque: {{ produto.quantidade_estoque }}
+    </label>
+
+    <input
+        type="number"
+        name="quantidade_{{ produto.id }}"
+        min="1"
+        max="{{ produto.quantidade_estoque }}"
+        value="1"
+    >
+</div>
+<br>
+    {% endfor %}
+
+    <hr>
+
+    <h2>Forma de pagamento</h2>
+
+    <select name="forma_pagamento" required>
+
+        <option value="">Selecione</option>
+        <option value="Pix">Pix</option>
+        <option value="Dinheiro">Dinheiro</option>
+        <option value="Cartão">Cartão</option>
+
+    </select>
+
+    <br><br>
+
+    <button type="submit">
+        Finalizar Venda
+    </button>
+
+</form>
+
+<hr>
+
+<h2>Produtos disponíveis</h2>
+
+<a href="{{ url_for('listar_produtos') }}">Voltar para Produtos</a>
+
+
+<br><br>
+
+<button type="submit">
+    Finalizar Venda
+</button>
+
+</form>
+
+<hr>
+
+<h2>Produtos disponíveis</h2>
+
+<a href="{{ url_for('listar_produtos') }}">Voltar para Produtos</a>
+
+{% endblock %}
+
