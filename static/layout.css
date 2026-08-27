@@ -1,0 +1,412 @@
+/* =========================================
+CONFIGURAÇÕES GERAIS
+========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f6f8;
+    color: #2c3e50;
+}
+
+
+/* =========================================
+CABEÇALHO
+========================================= */
+
+header {
+    background-color: #263544;
+    color: white;
+    padding: 22px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 26px;
+}
+
+
+/* =========================================
+MENU
+========================================= */
+
+nav {
+    display: flex;
+    gap: 10px;
+}
+
+nav a {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 9px 14px;
+    border-radius: 5px;
+    transition: 0.2s;
+}
+
+nav a:hover {
+    background-color: #3d5266;
+}
+
+
+/* Remove a linha padrão abaixo do header */
+
+body > hr {
+    display: none;
+}
+
+
+/* =========================================
+CONTEÚDO PRINCIPAL
+========================================= */
+
+main {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px 40px 20px;
+}
+
+
+/* =========================================
+TÍTULOS
+========================================= */
+
+h1 {
+    color: #263544;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+h2 {
+    color: #34495e;
+    margin-top: 30px;
+    margin-bottom: 18px;
+    font-size: 22px;
+}
+
+
+/* =========================================
+FORMULÁRIOS
+========================================= */
+
+form {
+    background-color: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+
+/* Formulário de cadastro de produto */
+
+main > form {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    align-items: end;
+}
+
+
+/* Labels */
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #34495e;
+}
+
+
+/* Inputs e Select */
+
+input,
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccd1d9;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: white;
+    transition: 0.2s;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.12);
+}
+
+
+/* =========================================
+BOTÕES
+========================================= */
+
+button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 11px 18px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+
+/* Botão de excluir */
+
+form[style*="display:inline"] button {
+    background-color: #e74c3c;
+    padding: 8px 12px;
+}
+
+form[style*="display:inline"] button:hover {
+    background-color: #c0392b;
+}
+
+
+/* =========================================
+TABELAS
+========================================= */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+th {
+    background-color: #263544;
+    color: white;
+    text-align: left;
+}
+
+th,
+td {
+    padding: 13px 12px;
+    border-bottom: 1px solid #e5e7e9;
+}
+
+td {
+    color: #444;
+}
+
+tr:hover td {
+    background-color: #f8f9f9;
+}
+
+
+/* =========================================
+LINKS DENTRO DO CONTEÚDO
+========================================= */
+
+main a {
+    color: #2980b9;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+main a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================
+LINHAS DIVISÓRIAS
+========================================= */
+
+main hr {
+    border: none;
+    border-top: 1px solid #dcdde1;
+    margin: 30px 0;
+}
+
+
+/* =========================================
+DASHBOARD
+========================================= */
+
+/* Links Hoje / Semana / Mês */
+
+main > div:first-of-type {
+    background-color: white;
+    display: inline-flex;
+    gap: 12px;
+    padding: 12px 18px;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+
+/* =========================================
+FORMULÁRIO DE VENDA
+========================================= */
+
+form div {
+    padding: 12px;
+    border-bottom: 1px solid #e5e7e9;
+}
+
+form div:hover {
+    background-color: #f8f9f9;
+}
+
+
+/* Checkbox */
+
+input[type="checkbox"] {
+    width: auto;
+    margin-right: 8px;
+}
+
+
+/* Campo de quantidade na venda */
+
+input[type="number"] {
+    max-width: 160px;
+}
+
+
+/* =========================================
+---- RESPONSIVIDADE
+========================================= */
+
+@media (max-width: 900px) {
+
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 18px;
+    }
+
+    main > form {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    nav {
+        flex-wrap: wrap;
+    }
+
+    table {
+        font-size: 13px;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    header {
+        padding: 20px;
+    }
+
+    header h1 {
+        font-size: 22px;
+    }
+
+    main {
+        padding: 0 12px 30px 12px;
+        margin-top: 20px;
+    }
+
+    main > form {
+        grid-template-columns: 1fr;
+    }
+
+    form {
+        padding: 18px;
+    }
+
+    nav {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    nav a {
+        width: 100%;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    h2 {
+        font-size: 19px;
+    }
+}
+
+/* Ações da tabela */
+
+td:last-child {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+td:last-child a,
+td:last-child button {
+    width: 100px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+    border-radius: 5px;
+
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+
+/* Botão Editar */
+
+td:last-child a {
+    background-color: #3498db;
+    color: white;
+}
+
+td:last-child a:hover {
+    background-color: #2980b9;
+    text-decoration: none;
+}
+
+
+/* Botão Excluir */
+
+td:last-child form {
+    display: inline-block !important;
+    padding: 0;
+    background: none;
+    box-shadow: none;
+}
+
+td:last-child button {
+    background-color: #e74c3c;
+}
+
+td:last-child button:hover {
+    background-color: #c0392b;
+}
